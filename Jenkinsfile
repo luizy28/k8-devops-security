@@ -29,6 +29,15 @@ pipeline {
               sh 'docker push luiz99/numeric-app:""$GIT_COMMIT""'
             }
           }
-      }    
+      }   
+
+      stage('Kubernetes Deployment - Dev') {
+          steps {
+            withKubeConfig([credentialsId: "kubeconfig"]) {
+              sh "sed -i 's#replace#luiz99/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml" 
+              sh "kubectl apply -f k8s_deployment_servbice.yaml"
+            }
+          }
+      }     
    }
  }
