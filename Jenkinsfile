@@ -32,12 +32,12 @@ pipeline {
             }
         }  
       
-    stage('SonarQube Analysis') {
-        steps {    
-      sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://172.172.145.231:9000 -Dsonar.login=sqp_7862cb01270f135efb6ed1360598c01027c10620"
-    }
-  }
-}
+      stage('SonarQube Analysis') {
+          steps {    
+            sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://172.172.145.231:9000 -Dsonar.login=sqp_7862cb01270f135efb6ed1360598c01027c10620"
+         }
+        }
+      }
 
       stage('Docker Build and Push') {
           steps {
@@ -47,7 +47,7 @@ pipeline {
               sh 'docker push luiz99/numeric-app:""$GIT_COMMIT""'
             }
           }
-      }   
+        }   
 
       stage('Kubernetes Deployment - Dev') {
           steps {
