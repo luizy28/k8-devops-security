@@ -31,6 +31,13 @@ pipeline {
               }
             }
         }  
+      
+      stage('SonarQube Analysis') {
+    withSonarQubeEnv() {
+      sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url='http://172.172.145.231:9000'"
+    }
+  }
+}
 
       stage('Docker Build and Push') {
           steps {
