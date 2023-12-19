@@ -32,8 +32,9 @@ pipeline {
             }
         }  
       
-      stage('SonarQube Analysis') {
-    withSonarQubeEnv() {
+    stage('SonarQube Analysis') {
+        steps {    
+          withSonarQubeEnv() {
       sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url='http://172.172.145.231:9000'"
     }
   }
