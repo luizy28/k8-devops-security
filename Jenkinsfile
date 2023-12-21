@@ -25,7 +25,7 @@ pipeline {
       stage('SonarQube Analysis') {
           steps {    
             withSonarQubeEnv('sonarqube') {
-              sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://172.172.145.231:9000"
+              sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecops-demo.eastus.cloudapp.azure.com:9000"
          }
          timeout(time: 1, unit: 'MINUTES') {
           script {
