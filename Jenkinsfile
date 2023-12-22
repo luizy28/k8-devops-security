@@ -9,6 +9,13 @@ pipeline {
             }
         } 
 
+      stage('Unit Test - JUnit and JaCoCo') {
+            steps {
+              sh "mvn test"
+          }
+        }  
+
+
      
     stage('Vulnerability Scan - Docker') {
           steps {    
