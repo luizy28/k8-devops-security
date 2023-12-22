@@ -19,8 +19,7 @@ pipeline {
           steps {
               sh "mvn org.pitest:pitest-maven:mutationCoverage"
             }
-            
-        }  
+         }
       
       stage('SonarQube Analysis') {
           steps {    
@@ -39,7 +38,12 @@ pipeline {
           steps {    
               sh "mvn dependency-check:check"
          }
-        }
+            post {
+                always {  
+                  dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+                }
+            } 
+          }
 
       stage('Docker Build and Push') {
           steps {
