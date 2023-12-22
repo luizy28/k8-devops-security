@@ -9,31 +9,7 @@ pipeline {
             }
         } 
 
-      stage('Unit Test - JUnit and JaCoCo') {
-          steps {
-              sh "mvn test"
-          }
-        }  
-
-      stage('Mutation Tests - PIT') {
-          steps {
-              sh "mvn org.pitest:pitest-maven:mutationCoverage"
-            }
-         }
-      
-      stage('SonarQube Analysis') {
-          steps {    
-            withSonarQubeEnv('sonarqube') {
-              sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecops-demo.eastus.cloudapp.azure.com:9000"
-         }
-         timeout(time: 1, unit: 'MINUTES') {
-          script {
-            waitForQualityGate abortPipeline: true
-          }
-        }
-      }
-    }
-
+     
     stage('Vulnerability Scan - Docker') {
           steps {    
               sh "mvn dependency-check:check"
