@@ -1,3 +1,4 @@
+package main
 
 deny[msg] {
     input.kind = "Service"
